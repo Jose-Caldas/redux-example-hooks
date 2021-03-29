@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 function addCourseAction(title) {
@@ -6,14 +6,18 @@ function addCourseAction(title) {
 }
 
 function CourseList() {
-  const qty = 3;
-
-  const courses = useSelector((state) => state.data.slice(0, qty), [qty]);
+  const courses = useSelector((state) => state.data);
   const dispatch = useDispatch();
 
   function addCourse() {
-    dispatch(addCourseAction("GraphQL"));
+    dispatch(addCourseAction(Title));
   }
+
+  const [Title, setTitle] = useState("");
+  const submitHandler = (e) => {
+    setTitle(e.target.value);
+  };
+
   return (
     <>
       <ul>
@@ -24,6 +28,7 @@ function CourseList() {
       <button type="button" onClick={addCourse}>
         Add Course
       </button>
+      <input onChange={submitHandler} type="text"></input>
     </>
   );
 }
